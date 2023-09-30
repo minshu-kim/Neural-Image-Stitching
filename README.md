@@ -15,3 +15,9 @@ git clone https://github.com/sanghyun-son/pysrwarp
 cd pysrwarp
 make
 ```
+
+## Train & Evaluation
+```
+bash scripts/train.sh 0
+bash scripts/eval.sh 0
+```
