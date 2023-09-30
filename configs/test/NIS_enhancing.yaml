@@ -1,0 +1,16 @@
+dataset:
+  dataset:
+    name: image-folder-eval
+    args:
+      root_path: /home/minsu/COCO-50000-RAW/test/
+      repeat: 1
+      cache: none
+  wrapper:
+    name: base
+    args: {}
+  batch_size: 1
+  box_size: 128
+
+eval_bsize: 2000000
+
+resume: ./save/_NIS_enhancing/W-best.pth

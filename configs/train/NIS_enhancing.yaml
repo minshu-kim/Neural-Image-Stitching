@@ -1,0 +1,60 @@
+train_dataset:
+  dataset:
+    name: image-folder
+    args:
+      root_path: MS-COCO/train/
+      repeat: 1
+      cache: none
+      inp_size: [360,480]
+
+  wrapper:
+    name: warp-yspace-coord-cell
+    args:
+      inp_size: 320
+      augment: true
+
+  batch_size: 20
+
+valid_dataset:
+  dataset:
+    name: image-folder
+    args:
+      root_path: MS-COCO/valid/
+      repeat: 1
+      cache: none
+      inp_size: [360, 480]
+
+  wrapper:
+    name: warp-yspace-coord-cell
+    args:
+      inp_size: 320
+      augment: true
+
+  batch_size: 20
+
+model:
+  name: NIS
+  args:
+    encoder_spec:
+      name: edsr-baseline
+      args:
+        no_upsampling: true
+
+    blender_spec:
+      name: edsr-baseline
+      args:
+        no_upsampling: true
+        n_feats: 64
+        n_colors: 512
+
+    hidden_dim: 256
+
+optimizer:
+  name: adam
+  args:
+    lr: 1.e-4
+
+epoch_max: 100
+epoch_save: 10
+
+resume: save/NIS_enhancing/epoch-last.pth

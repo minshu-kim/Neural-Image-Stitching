@@ -1,0 +1,20 @@
+dataset:
+  dataset:
+    name: paired-image-folders
+    args:
+      root_path_1: UDIS-real/testing/input1/
+      root_path_2: UDIS-real/testing/input2/
+      inp_size: 512
+      repeat: 1
+      cache: none
+
+  wrapper:
+    name: paired-images
+    args: {}
+
+  batch_size: 1
+
+eval_bsize: 200000
+
+resume_align: pretrained/ihn.pth
+resume_stitching: ./save/_NIS_blending/epoch-30.pth

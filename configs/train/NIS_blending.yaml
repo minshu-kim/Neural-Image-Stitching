@@ -1,0 +1,28 @@
+train_dataset:
+  dataset:
+    name: paired-image-folders
+    args:
+      root_path_1: UDIS-D/training/input1/
+      root_path_2: UDIS-D/training/input2/
+      inp_size: 128
+      first_k: 1000
+      repeat: 1
+      cache: none
+
+  wrapper:
+    name: paired-images
+    args: {}
+
+  batch_size: 1
+
+optimizer:
+  name: adam
+  args:
+    lr: 1.e-4
+
+epoch_max: 100
+epoch_save: 5
+
+resume_align: ./pretrained/ihn.pth
+resume_stitching: ./save/_NIS_enhancing/W-best.pth
+resume_stitching_eval: ./save/_NIS_enhancing/W-best.pth

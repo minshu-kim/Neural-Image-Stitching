@@ -1,0 +1,22 @@
+patch_size: 48
+real: true
+
+eval_dataset:
+  dataset:
+    name: paired-image-folders-resize
+    args:
+      root_path_1: UDIS-real/testing/input1/
+      root_path_2: UDIS-real/testing/input2/
+      inp_size: 128
+      repeat: 1
+      cache: none
+  wrapper:
+    name: paired-images
+    args: {}
+  batch_size: 1
+
+model:
+  name: IHN
+  args: {}
+
+resume_align: pretrained/ihn.pth

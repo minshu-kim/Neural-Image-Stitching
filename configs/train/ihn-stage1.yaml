@@ -1,0 +1,39 @@
+train_dataset:
+  dataset:
+    name: image-folder-resize-np
+    args:
+      root_path: MS-COCO/train/
+      inp_size: [360, 480]
+      repeat: 1
+      cache: none
+  wrapper:
+    name: ihn-onthefly
+    args: {}
+  batch_size: 20
+
+valid_dataset:
+  dataset:
+    name: image-folder-resize-np
+    args:
+      root_path: MS-COCO/test/
+      inp_size: [360, 480]
+      repeat: 1
+      cache: none
+  wrapper:
+    name: ihn-onthefly
+    args: {}
+  batch_size: 20
+
+H_model:
+  name: IHN
+  args: {}
+
+optimizer:
+  name: adamw
+  args:
+    lr: 1.e-4
+
+epoch_max: 50
+epoch_save: 10
+
+resume_align: save/_ihn-stage1/H-epoch-last.pth

@@ -1,0 +1,42 @@
+train_dataset:
+  dataset:
+    name: paired-image-folders-resize
+    args:
+      root_path_1: UDIS-D/training/input1/
+      root_path_2: UDIS-D/training/input2/
+      inp_size: 128
+
+      repeat: 1
+      cache: none
+  wrapper:
+    name: paired-images
+    args: {}
+  batch_size: 20
+
+valid_dataset:
+  dataset:
+    name: paired-image-folders-resize
+    args:
+      root_path_1: UDIS-D/testing/input1/
+      root_path_2: UDIS-D/testing/input2/
+      inp_size: [128, 128]
+      repeat: 1
+      cache: none
+  wrapper:
+    name: paired-images
+    args: {}
+  batch_size: 20
+
+H_model:
+  name: IHN
+  args: {}
+
+optimizer:
+  name: adamw
+  args:
+    lr: 5.e-5
+
+epoch_max: 50
+epoch_save: 10
+
+resume_align: save/_ihn-stage1/H-best.pth
