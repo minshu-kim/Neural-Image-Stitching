@@ -1,12 +1,11 @@
-patch_size: 48
 real: true
 
 eval_dataset:
   dataset:
     name: paired-image-folders-resize
     args:
-      root_path_1: UDIS-real/testing/input1/
-      root_path_2: UDIS-real/testing/input2/
+      root_path_1: UDIS-D/testing/input1/
+      root_path_2: UDIS-D/testing/input2/
       inp_size: 128
       repeat: 1
       cache: none

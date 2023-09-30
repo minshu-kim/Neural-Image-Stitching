@@ -2,7 +2,7 @@ dataset:
   dataset:
     name: image-folder-eval
     args:
-      root_path: /home/minsu/COCO-50000-RAW/test/
+      root_path: MS-COCO/test/
       repeat: 1
       cache: none
   wrapper:

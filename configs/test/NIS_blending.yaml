@@ -2,8 +2,8 @@ dataset:
   dataset:
     name: paired-image-folders
     args:
-      root_path_1: UDIS-real/testing/input1/
-      root_path_2: UDIS-real/testing/input2/
+      root_path_1: UDIS-D/testing/input1/
+      root_path_2: UDIS-D/testing/input2/
       inp_size: 512
       repeat: 1
       cache: none

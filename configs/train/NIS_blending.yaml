@@ -20,7 +20,7 @@ optimizer:
   args:
     lr: 1.e-4
 
-epoch_max: 100
+epoch_max: 30
 epoch_save: 5
 
 resume_align: ./pretrained/ihn.pth
