@@ -21,3 +21,6 @@ make
 bash scripts/train.sh 0
 bash scripts/eval.sh 0
 ```
+
+## Acknowlegment
+This work is mainly based on [LTEW](https://github.com/jaewon-lee-b/ltew) and [IHN](https://github.com/imdumpl78/IHN), we thank the authors for the contribution.
