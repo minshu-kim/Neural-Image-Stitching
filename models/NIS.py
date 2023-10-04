@@ -8,10 +8,9 @@ import torch.nn.functional as F
 from models import register
 from utils import make_coord
 
-
 @register('NIS')
 class NeuralImageStitching(nn.Module):
-    def __init__(self, encoder_spec, blender_spec, hidden_dim=256, imnet_spec=None):
+    def __init__(self, encoder_spec, blender_spec, hidden_dim=256, imnet_spec=None, detailor_spec=None):
         super().__init__()
 
         self.encoder = models.make(encoder_spec)

@@ -276,14 +276,14 @@ def main(config_, save_path, args):
             'epoch': epoch
         }
 
-        torch.save(sv_file, os.path.join(save_path, 'W-epoch-last.pth'))
+        torch.save(sv_file, os.path.join(save_path, 'epoch-last.pth'))
 
         if (epoch_save is not None) and (epoch % epoch_save == 0):
-            torch.save(sv_file, os.path.join(save_path, 'W-epoch-{}.pth'.format(epoch)))
+            torch.save(sv_file, os.path.join(save_path, 'epoch-{}.pth'.format(epoch)))
 
         if valid_psnr > best:
             best = valid_psnr
-            torch.save(sv_file, os.path.join(save_path, 'W-best.pth'.format(epoch)))
+            torch.save(sv_file, os.path.join(save_path, 'best.pth'.format(epoch)))
 
         t = timer.t()
         prog = (epoch - epoch_start + 1) / (epoch_max - epoch_start + 1)

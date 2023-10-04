@@ -1,7 +1,8 @@
 import os
 import gc
-import yaml
+import cv2
 
+import yaml
 import utils
 import models
 import datasets
@@ -18,10 +19,41 @@ from srwarp import transform
 from torchvision import transforms
 from torch.utils.data import DataLoader
 
+c1 = [0, 0]; c2 = [0, 0]
+finder = cv2.detail.SeamFinder.createDefault(2)
+
+def seam_finder(ref, tgt, ref_m, tgt_m):
+    ref_ = ref.mean(dim=1, keepdim=True)
+    ref_ -= ref_.min()
+    ref_ /= ref_.max()
+
+    tgt_ = tgt.mean(dim=1, keepdim=True)
+    tgt_ -= tgt_.min()
+    tgt_ /= tgt_.max()
+
+    ref_ = (ref_.cpu().numpy() * 255).astype(np.uint8)
+    tgt_ = (tgt_.cpu().numpy() * 255).astype(np.uint8)
+    ref_m = (ref_m[0,0,:,:].cpu().numpy() * 255).astype(np.uint8)
+    tgt_m = (tgt_m[0,0,:,:].cpu().numpy() * 255).astype(np.uint8)
+
+    inp = np.concatenate([ref_, tgt_], axis=0).transpose(0,2,3,1)
+    inp = np.repeat(inp, 3, -1)
+
+    masks = np.stack([ref_m, tgt_m], axis=0)[..., None]
+    corners = np.stack([c1, c2], axis=0).astype(np.uint8)
+
+    ref_m, tgt_m = finder.find(inp, corners, masks)
+    ref *= torch.Tensor(cv2.UMat.get(ref_m).reshape(1,1,*ref.shape[-2:])/255).cuda()
+    tgt *= torch.Tensor(cv2.UMat.get(tgt_m).reshape(1,1,*tgt.shape[-2:])/255).cuda()
+
+    stit_rep = ref + tgt
+
+    return stit_rep
+
 
 def batched_predict(model, ref, ref_grid, ref_cell, ref_mask,
                     tgt, tgt_grid, tgt_cell, tgt_mask,
-                    stit_grid, sizes, bsize):
+                    stit_grid, sizes, bsize, seam_cut=False):
 
     fea_ref, fea_ref_grid, ref_coef, ref_freq = model.gen_feat(ref)
     fea_ref_w = model.NeuralWarping(
@@ -35,7 +67,14 @@ def batched_predict(model, ref, ref_grid, ref_cell, ref_mask,
         tgt_freq, tgt_coef, tgt_grid, tgt_cell, sizes
     )
 
-    fea = torch.cat([fea_ref_w * ref_mask, fea_tgt_w * tgt_mask], dim=1)
+    if seam_cut:
+        fea = seam_finder(fea_ref_w, fea_tgt_w, ref_mask, tgt_mask).repeat(1,2,1,1)
+
+    else:
+        fea_ref_w *= ref_mask
+        fea_tgt_w *= tgt_mask
+        fea = torch.cat([fea_ref_w, fea_tgt_w], dim=1)
+
     stit_rep = model.gen_feat_for_blender(fea)
 
     ql = 0
@@ -189,7 +228,7 @@ def valid(loader, model, H_model):
         pred = batched_predict(
             model, ref, ref_grid, ref_cell, ref_mask,
             tgt, tgt_grid, tgt_cell, tgt_mask,
-            stit_grid, sizes, config['eval_bsize']
+            stit_grid, sizes, config['eval_bsize'], seam_cut=True
         )
         pred = pred.permute(0, 2, 1).reshape(b, c, *sizes)
         pred = ((pred + 1)/2).clamp(0,1) * stit_mask.reshape(b, 1, *sizes)

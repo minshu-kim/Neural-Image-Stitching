@@ -23,6 +23,6 @@ optimizer:
 epoch_max: 30
 epoch_save: 5
 
-resume_align: ./pretrained/ihn.pth
-resume_stitching: ./save/_NIS_enhancing/W-best.pth
-resume_stitching_eval: ./save/_NIS_enhancing/W-best.pth
+resume_align: pretrained/ihn.pth
+resume_stitching: ./save/_NIS_enhancing/best.pth
+resume_stitching_eval: ./save/_NIS_enhancing/best.pth

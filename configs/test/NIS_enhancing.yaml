@@ -13,4 +13,4 @@ dataset:
 
 eval_bsize: 2000000
 
-resume: ./save/_NIS_enhancing/W-best.pth
+resume: ./save/_NIS_enhancing/best.pth
