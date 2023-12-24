@@ -1,6 +1,6 @@
 # Implicit Neural Image Stitching
 
-This repository contains the official implementation of [NIS](https://arxiv.org/abs/2309.01409), 24' WACV.
+This repository contains the official implementation of NIS, 24' WACV: https://arxiv.org/abs/2309.01409
 
 ## Requirement
 1) Python packages
