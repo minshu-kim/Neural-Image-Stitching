@@ -1,4 +1,4 @@
-# Implicit Neural Image Stitching
+## Implicit Neural Image Stitching With Enhanced and Blended Feature Reconstruction
 
 This repository contains the official implementation of NIS, 24' WACV: https://arxiv.org/abs/2309.01409
 
