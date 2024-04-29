@@ -33,7 +33,7 @@ bash scripts/eval.sh 0
 ```
 
 ## Stitching Example
-Note that stitching with large-sized images may cause the GPU out-of-memory due to the consumption of the backbone.
+Note that stitching large-sized images may cause the GPU out-of-memory due to the consumption of the backbone.
 ```
 bash scripts/stitch.sh left.jpg right.jpg
 ```
