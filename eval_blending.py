@@ -98,7 +98,7 @@ def prepare_ingredient(model, inp_tgt, inp_ref, tgt, ref):
     four_pred, _ = model(inp_tgt, inp_ref, iters_lev0=6, iters_lev1=3, test_mode=True)
     shift = four_pred.reshape(b, 2, -1).permute(0, 2, 1)
 
-    shape = (512, 512)
+    shape = tgt.shape[-2:]
     H_tgt2ref, w_max, w_min, h_max, h_min = utils.get_H(shift * w/128, shape)
 
     img_h = torch.ceil(h_max - h_min).int().item()
