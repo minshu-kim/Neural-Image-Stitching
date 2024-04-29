@@ -32,7 +32,7 @@ bash scripts/train.sh 0
 bash scripts/eval.sh 0
 ```
 
-## RUN Example
+## Stitching Example
 Note that stitching with large-sized images may cause the GPU out-of-memory issues due to the consumption of the backbone.
 ```
 bash scripts/stitch.sh left.jpg right.jpg
