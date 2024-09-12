@@ -71,8 +71,8 @@ def batched_predict(model, ref, ref_grid, ref_cell, ref_mask,
         fea = seam_finder(fea_ref_w, fea_tgt_w, ref_mask, tgt_mask).repeat(1,2,1,1).cuda()
 
     else:
-        fea_ref_w *= ref_mask
-        fea_tgt_w *= tgt_mask
+        fea_ref_w *= ref_mask.cpu()
+        fea_tgt_w *= tgt_mask.cpu()
         fea = torch.cat([fea_ref_w, fea_tgt_w], dim=1).cuda()
 
     stit_rep = model.gen_feat_for_blender(fea)
