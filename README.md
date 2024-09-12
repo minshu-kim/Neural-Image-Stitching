@@ -32,8 +32,8 @@ bash scripts/train.sh 0
 bash scripts/eval.sh 0
 ```
 
-## RUN Example
-We recommend you use image sizes under 1024X1024 as the backbone's GPU memory consumption.
+## Stitching Example
+Note that stitching large-sized images may cause the GPU out-of-memory due to the consumption of the backbone.
 ```
 bash scripts/stitch.sh left.jpg right.jpg
 ```
